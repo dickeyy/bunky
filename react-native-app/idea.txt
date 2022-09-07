@@ -1,0 +1,4 @@
+-- Onboarding --
+The idea is to create the user's account when they enter their phone number, when we do this, we will 
+set all values that are required in the document to null, then as we proceed through the onboarding steps
+we update the document with the new data that we gather on each screen.

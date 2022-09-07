@@ -242,6 +242,19 @@ const ProfileCreationPage3 = ({ navigation }) => {
                             keyboardType='default'
                         />
 
+                        <Text style={onboardingStyles.questionaireQuestion}>Personal Bio</Text> 
+                        <TextInput
+                            style={onboardingStyles.questionaireInput2}
+                            placeholder="I'm really cool"
+                            multiline
+                            numberOfLines={4}
+                            keyboardAppearance='light'
+                            returnKeyType='next'
+                            selectionColor='#6320EE'
+                            cursorColor='#6320EE'
+                            keyboardType='default'
+                        />
+
                         <Pressable style={onboardingStyles.homePhoneInputButton} onPress={() => { navigation.navigate('ProfileCreation4') }}>
                             <Text style={onboardingStyles.homePhoneInputButtonText}>Next</Text>
                         </Pressable>

@@ -250,6 +250,21 @@ const onboardingStyles = StyleSheet.create({
         marginBottom: 15,
     },
 
+    questionaireInput2: {
+        fontSize: 20,
+        marginTop: 7.5,
+        width: '90%',
+        fontWeight: '500',
+        color: '#000000',
+        alignItems: 'center',
+        textAlign: 'center',
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 10,
+        marginBottom: 15,
+    },
+
     uploadedImage: {
         width: 300,
         height: 400,
@@ -272,7 +287,35 @@ const onboardingStyles = StyleSheet.create({
         position: 'relative',
         top: 0,
         left: 0,
-    }
+    },
+
+    profileContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        position: 'relative',
+        top: 0,
+        left: 0,
+    },
+
+    profileImage: {
+        width: 200,
+        height: 300,
+        borderRadius: 10,
+        marginTop: 30,
+        position: 'relative',
+    },
+
+    profileName: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: '#211A1D',
+        alignItems: 'center',
+        textAlign: 'center',
+        marginTop: 20,
+        marginBottom: 20,
+    },
 
 });
 

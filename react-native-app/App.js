@@ -13,6 +13,7 @@ import ProfileCreationPage3 from './pages/ProfileCreationPage3';
 import ProfileCreationPage4 from './pages/ProfileCreationPage4';
 import ProfileCreationPage5 from './pages/ProfileCreationPage5';
 import OnBoardingFinalizeProfilePage from './pages/OnBoardingFinalizeProfilePage';
+import HomePage from './pages/HomePage';
 
 const Stack = createNativeStackNavigator();
 
@@ -76,8 +77,8 @@ const App = () => {
         />
 
         <Stack.Screen
-          name="OnBoardingFinalizeProfile"
-          component={OnBoardingFinalizeProfilePage}
+          name="Home"
+          component={HomePage}
           options={{ headerShown: false, animation: 'fade' }}
         />
 

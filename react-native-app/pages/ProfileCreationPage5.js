@@ -60,7 +60,7 @@ const ProfileCreationPage5 = ({ navigation })  => {
                             <Image source={{ uri: image1 }} style={onboardingStyles.uploadedImage} />
                           </Pressable>
 
-                          <Pressable onPress={() => { navigation.navigate('OnBoardingFinalizeProfile') }} style={onboardingStyles.homePhoneInputButton}>
+                          <Pressable onPress={() => { navigation.navigate('Home') }} style={onboardingStyles.homePhoneInputButton}>
                             <Text style={onboardingStyles.homePhoneInputButtonText}>Finish</Text>
                           </Pressable>
                         </View>

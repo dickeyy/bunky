@@ -22,7 +22,7 @@ const HomePage = ({ navigation, id })  => {
 
   // Personal Info
   const [uId, setId] = useState(null);
-  const [image, setImage] = useState('https://i.imgur.com/ji6KXLI.jpg');
+  const [image, setImage] = useState('https://i.imgur.com/vKi7nE2.jpg');
   const [firstName, setFirstName] = useState('Kyle');
   const [lastName, setLastName] = useState('Dickey');
   const [bio, setBio] = useState('I am really cool!');
@@ -35,11 +35,13 @@ const HomePage = ({ navigation, id })  => {
   const [pronouns, setPronouns] = useState('He / Him');
   const [gender, setGender] = useState('Man');
   const [orientation, setOrientation] = useState('Straight');
+  const [verified, setVerified] = useState(true);
 
   // Roomate questionaire info
   const [bedTime, setBedTime] = useState('12 AM')
   const [wakeUpTime, setWakeUpTime] = useState('9 AM')
   const [okayWithGuests, setOkayWithGuests] = useState('Yes')
+  const [howOftenHaveGuests, setHowOftenHaveGuests] = useState('Sometimes')
   const [showerTime , setShowerTime] = useState('Morning')
   const [cookOrder, setCookOrder] = useState('Order')
   const [keepSpaceClean, setKeepSpaceClean] = useState('Very important to me')
@@ -64,6 +66,8 @@ const HomePage = ({ navigation, id })  => {
             <View style={mainStyles.fullProfileImageContainer}>
                 
                 <Image source={{ uri:image }} style={mainStyles.fullProfileImage} />
+                {/* <View style={mainStyles.profileImageNumIndicator2}>
+                </View> */}
                 
                 <Pressable onPress={() => { setFullPage(false) }}>
                     <View style={mainStyles.backIconContainer}>
@@ -77,10 +81,17 @@ const HomePage = ({ navigation, id })  => {
 
                 <View style={mainStyles.fullProfileInfoRow1}>
                   <Text style={mainStyles.fullProfileName}>{firstName}</Text>
-                  <Text style={mainStyles.fullProfileAge}>{age}</Text>
+
+                  {verified ?
+        
+                    <Image source={require('../assets/verified-icon.png')} style={mainStyles.profileCardVerified2} />
+                    :
+                  null }
+
                 </View>
                 
                 <View style={mainStyles.fullProfileInfoRow2}>
+                  <Text style={mainStyles.fullProfileAge}>{age}</Text>
                   <Text style={mainStyles.fullProfilePronouns}>{pronouns}</Text>
                 </View>
 
@@ -157,6 +168,11 @@ const HomePage = ({ navigation, id })  => {
                 </View> 
 
                 <View style={mainStyles.fullProfileInfoRow4}>
+                  <Text style={mainStyles.fullProfileQuestionTitle}>How often do I have guests?</Text>
+                  <Text style={mainStyles.fullProfileJob}>{howOftenHaveGuests}</Text>
+                </View> 
+
+                <View style={mainStyles.fullProfileInfoRow4}>
                   <Text style={mainStyles.fullProfileQuestionTitle}>When do I shower?</Text>
                   <Text style={mainStyles.fullProfileJob}>{showerTime}</Text>
                 </View> 
@@ -194,7 +210,7 @@ const HomePage = ({ navigation, id })  => {
         <StatusBar hidden={false} style={'dark'} /> 
         
         <Header navigation={navigation}/>
-        <ProfileCard image={image} firstName={firstName} age={age} lastName={lastName} pronouns={pronouns} id={id} navigation={navigation}/>
+        <ProfileCard image={image} firstName={firstName} age={age} lastName={lastName} pronouns={pronouns} id={id} navigation={navigation} isVerified={verified}/>
 
         <Pressable style={mainStyles.infoIconButton} onPress={() => { setFullPage(true) }}>
           <Image style={mainStyles.infoIcon} source={require('../assets/info-icon.png')} />

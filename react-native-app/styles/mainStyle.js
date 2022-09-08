@@ -122,6 +122,42 @@ const mainStyles = StyleSheet.create({
     top: 0,
   },
 
+  profileImageNumIndicator: {
+    width: '95%',
+    height: '0%',
+    borderBottomColor:'#8d8d8d',
+    borderBottomWidth: 2,
+    position: 'relative',
+    top: 145,
+  },
+
+  profileImageNumIndicator2: {
+    width: '95%',
+    height: '0%',
+    borderBottomColor:'#fff',
+    borderBottomWidth: 2,
+    position: 'relative',
+    bottom: 410,
+  },
+
+  profileImageNumIndicatorCurrent: {
+    width: '95%',
+    height: '0%',
+    borderBottomColor:'#fff',
+    borderBottomWidth: 2,
+    position: 'relative',
+    top: 145,
+  },
+
+  profileImageNumIndicatorCurrent2: {
+    width: '95%',
+    height: '0%',
+    borderBottomColor:'#8d8d8d',
+    borderBottomWidth: 2,
+    position: 'relative',
+    bottom: 410,
+  },
+
   profileCardInfo: {
     width: '100%',
     height: '20%',
@@ -160,6 +196,42 @@ const mainStyles = StyleSheet.create({
     textShadowColor: 'rgba(0, 0, 0, .25)',
     textShadowOffset: {width: 0, height: 0},
     textShadowRadius: 5,
+  },
+
+  likeOverlay: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    backgroundColor: 'rgba(0, 255, 0, 0.15)',
+    borderRadius: 20,
+    borderColor: 'rgb(0, 255, 0)',
+    borderWidth: 5,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+
+  likeIcon2: {
+    width: 100,
+    height: 100,
+    shadowColor: 'rgba(0, 0, 0, .5)',
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 5,
+  },
+
+  profileCardVerified: {
+    width: 30,
+    height: 30,
+    marginTop: 10,
+    marginLeft: 5,
+  },
+
+  profileCardVerified2: {
+    width: 40,
+    height: 40,
+    marginTop: 10,
   },
 
   profileAge: {
@@ -201,7 +273,7 @@ const mainStyles = StyleSheet.create({
   likeIcon: {
     width: 75,
     height: 75,
-    marginLeft: 20,
+    marginLeft: 50,
     textShadowColor: 'rgba(0, 0, 0, .25)',
     textShadowOffset: {width: 0, height: 0},
     textShadowRadius: 5,
@@ -210,7 +282,7 @@ const mainStyles = StyleSheet.create({
   dislikeIcon: {
     width: 77,
     height: 77,
-    marginRight: 20,
+    marginRight: 50,
   },
 
   fullProfileImage: {
@@ -307,9 +379,8 @@ const mainStyles = StyleSheet.create({
   },
 
   fullProfileAge: {
-    fontSize: 35,
-    marginLeft: 10,
-    marginTop: 10,
+    fontSize: 30,
+    marginRight: 10,
     fontWeight: '800'
   },
 

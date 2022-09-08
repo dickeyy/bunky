@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 // Create a route for the root path
-app.get('/', (req, res) => {
+app.get('/api/api', (req, res) => {
     res.send('Hello World!');
 });
 

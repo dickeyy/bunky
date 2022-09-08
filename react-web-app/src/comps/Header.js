@@ -57,7 +57,7 @@ function Header() {
                     <DrawerCloseButton />
                     <DrawerHeader fontSize={50} fontWeight={700}>Menu</DrawerHeader>
                     <DrawerBody>
-                        <NavLink to={'/admin/guilds'}>
+                        <NavLink to={'/'}>
                             <Link fontSize={30} fontWeight={700}>
                                 Home
                             </Link>
@@ -65,7 +65,7 @@ function Header() {
 
                         <Box w={10} />
 
-                        <NavLink to={'/admin/commands'}>
+                        <NavLink to={'/about'}>
                             <Link fontSize={30} fontWeight={700}>
                                 About
                             </Link>
@@ -73,7 +73,7 @@ function Header() {
 
                         <Box w={10} />
 
-                        <NavLink to={'/admin/economy'}>
+                        <NavLink to={'/app'}>
                             <Link fontSize={30} fontWeight={700}>
                                 App
                             </Link>
@@ -84,19 +84,19 @@ function Header() {
                 </Show>
                 
                 <Hide breakpoint='(max-width: 580px)'>
-                    <NavLink to={'/admin/guilds'}>
+                    <NavLink to={'/'}>
                         <Link mr={3}>
                             Home
                         </Link>
                     </NavLink>
 
-                    <NavLink to={'/admin/commands'}>
+                    <NavLink to={'/about'}>
                         <Link mr={3}>
                             About
                         </Link>
                     </NavLink>
 
-                    <NavLink to={'/admin/economy'}>
+                    <NavLink to={'/app'}>
                         <Link mr={3}>
                             App
                         </Link>

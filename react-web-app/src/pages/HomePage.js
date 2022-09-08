@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { theme, Box, Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, useDisclosure, } from '@chakra-ui/react'
+import { theme, Box, Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, useDisclosure, Heading, } from '@chakra-ui/react'
 import { FaDiscord } from 'react-icons/fa';
 import { useSearchParams, useLocation } from "react-router-dom"
 
@@ -17,6 +17,8 @@ function HomePage() {
     <Box w='20vw' theme={theme} flexDirection="column">
 
       <Header />
+
+      <Heading fontSize={50} textAlign='center' fontWeight={700}>Coming Soon...</Heading>
 
     </Box>
   );

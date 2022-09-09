@@ -3,6 +3,7 @@ const express = require("express");
 const axios = require("axios");
 const dotenv = require("dotenv");
 var bodyParser = require('body-parser')
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 dotenv.config();
 
@@ -10,6 +11,11 @@ dotenv.config();
 const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
 const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require('twilio')(twilioAccountSid, twilioAuthToken);
+
+// Set up mongo
+const mClient = new MongoClient(process.env.MONGO_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+mClient.connect()
+const db = mClient.db("main");
 
 // Set up app
 const app = express();
@@ -22,7 +28,7 @@ app.use(bodyParser.json());
 // base route
 app.get("/", (req, res, next) => {
   return res.status(200).json({
-    message: process.env.TWILIO_ACCOUNT_SID,
+    message: "Hello World!",
   });
 });
 

@@ -15,6 +15,7 @@ import ProfileCreationPage5 from './pages/ProfileCreationPage5';
 import OnBoardingFinalizeProfilePage from './pages/OnBoardingFinalizeProfilePage';
 import HomePage from './pages/HomePage';
 import FullPageProfileViewPage from './comps/FullPageProfileViewPage';
+import OnboardingCodeEnterPage from './pages/OnboardingCodeEnterPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,12 +23,6 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-
-        <Stack.Screen
-          name="Home"
-          component={HomePage}
-          options={{ headerShown: false, animation: 'fade' }}
-        />
 
         <Stack.Screen
           name="Onboarding1"
@@ -50,6 +45,12 @@ const App = () => {
         <Stack.Screen
           name="DormPurposeOnboarding"
           component={DormPurposeOnboardingPage}
+          options={{ headerShown: false, animation: 'fade' }}
+        />
+
+        <Stack.Screen
+          name="OnboardingCodeEnter"
+          component={OnboardingCodeEnterPage}
           options={{ headerShown: false, animation: 'fade' }}
         />
 
@@ -87,6 +88,12 @@ const App = () => {
           name="FullPageProfileView"
           component={FullPageProfileViewPage}
           options={{ headerShown: false, animation: 'none' }}
+        />
+
+        <Stack.Screen
+          name="Home"
+          component={HomePage}
+          options={{ headerShown: false, animation: 'fade' }}
         />
 
 

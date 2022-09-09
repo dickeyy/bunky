@@ -1,0 +1,16 @@
+{
+  "name": "aws-rest-api",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.17.1",
+    "serverless-http": "^2.7.0",
+    "twilio": "^3.82.0"
+  },
+  "devDependencies": {
+    "serverless-domain-manager": "^6.1.0"
+  }
+}

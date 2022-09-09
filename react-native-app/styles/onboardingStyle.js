@@ -192,6 +192,41 @@ const onboardingStyles = StyleSheet.create({
         backgroundColor: 'rgba(99,32,238,0.1)',
     },
 
+    homeNameInput2: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: '#000',
+        marginTop: -50,
+        marginBottom: 20,
+        borderColor: '#6320EE',
+        textAlign: 'center',
+        borderWidth: 1,
+        width: '90%',
+        borderRadius: 10,
+        padding: 10,
+        backgroundColor: 'rgba(99,32,238,0.1)',
+    },
+
+    codeEnterContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        position: 'absolute',
+        top: 200,
+        width: '100%',
+    },
+
+    homeTitleText4: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        color: '#211A1D',
+        alignItems: 'center',
+        textAlign: 'center',
+        position: 'absolute',
+        top: 10,
+    },
+
     homeNameInputContainer: {
         flex: 1,
         alignItems: 'center',

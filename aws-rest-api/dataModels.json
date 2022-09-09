@@ -1,0 +1,89 @@
+{
+
+    "UserData": {
+        "uId": null,
+        "username": null,
+        "phoneNumber": null,
+        "email": null,
+        "isVerified": false,
+        "dateCreated": null,
+        "dateUpdated": null,
+        "encryptPassword": null,
+        "personalInfo": {
+            "firstName": null,
+            "lastName": null,
+            "age": null,
+            "location": null,
+            "jobTitle": null,
+            "company": null,
+            "bio": null,
+            "school": null,
+            "pronouns": null,
+            "gender": null,
+            "sexualOrientation": null
+        },
+        "livingInfo": {
+            "bedTime": null,
+            "wakeTime": null,
+            "okayWithGuests": null,
+            "howOftenHaveGuests": null,
+            "showerTime": null,
+            "cookOrder": null,
+            "keepSpaceClean": null,
+            "noiseLevel": null,
+            "lgbtComfort": null,
+            "smoker": null
+        },
+        "pictures": [],
+        "likes": [
+            {
+                "userId": null
+            }
+        ],
+        "dislikes": [
+            {
+                "userId": null
+            }
+        ],
+        "matches": [
+            {
+                "userId": null
+            }
+        ]
+    },
+
+
+
+    "SessionIdData": {
+        "uId": null,
+        "sessionId": null
+    },
+
+
+
+    "ChatData": {
+        "uId": null,
+        "chats": [
+            {
+                "chatId": null,
+                "chatterUId": null,
+                "messages": [
+                    {
+                        "messageId": null,
+                        "isSeen": null,
+                        "content": null
+                    }
+                ]
+            }
+        ],
+        "chatDecryptPassword": null
+    },
+
+
+
+    "EncryptData": {
+        "password": null,
+        "useCount": 0
+    }
+
+}

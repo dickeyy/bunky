@@ -5,11 +5,13 @@
   "dependencies": {
     "axios": "^0.27.2",
     "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
     "dotenv": "^16.0.2",
     "express": "^4.17.1",
     "mongodb": "^4.9.1",
     "serverless-http": "^2.7.0",
-    "twilio": "^3.82.0"
+    "twilio": "^3.82.0",
+    "uid-generator": "^2.0.0"
   },
   "devDependencies": {
     "serverless-domain-manager": "^6.1.0"

@@ -9,9 +9,9 @@
         "dateCreated": null,
         "dateUpdated": null,
         "encryptPassword": null,
+        "firstName": null,
+        "lastName": null,
         "personalInfo": {
-            "firstName": null,
-            "lastName": null,
             "age": null,
             "location": null,
             "jobTitle": null,

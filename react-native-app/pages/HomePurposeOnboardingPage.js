@@ -3,6 +3,7 @@ import { Text, View, Button, ImageBackground, Image, SafeAreaView, Pressable, Te
 import React, { useState, useRef } from "react";
 import PhoneInput from 'react-native-phone-number-input';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import Styles
 import mainStyles from '../styles/mainStyle';
@@ -78,6 +79,10 @@ const HomePurposeOnboardingPage = ({ navigation }) => {
       .then((json) => {
         
         if (json.verification_check.status === 'approved') {
+          const sessionData = json.sessionData.sessionId
+          
+          storeSessionData(sessionData)
+
           navigation.navigate('ProfileCreation1');
         } else {
           Alert.alert("Error", "There was an error verifying the code. Please try again later.")
@@ -87,6 +92,14 @@ const HomePurposeOnboardingPage = ({ navigation }) => {
       .catch((error) => {
         console.error(error);
       });
+    }
+
+    const storeSessionData = async (value) => {
+      try {
+        await AsyncStorage.setItem('@session_id', value)
+      } catch (e) {
+        Alert.alert('Error', 'There was an error saving your session data. Please try again later.')
+      }
     }
 
   return (

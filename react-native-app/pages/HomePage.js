@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, ImageBackground, Image, SafeAreaView, Pressable, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform } from 'react-native';
 import React, { useState, useRef, useEffect } from "react";
 import {useRoute} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import Styles
 import mainStyles from '../styles/mainStyle';
@@ -52,6 +53,30 @@ const HomePage = ({ navigation, id })  => {
   const [fullPage, setFullPage] = useState(false);
 
   const route = useRoute();
+
+  const [sessionId, setSessionId] = React.useState("");
+
+    const getSessionId = async () => {
+      try {
+        const value = await AsyncStorage.getItem('@session_id')
+        if(value !== null) {
+          return value
+        }
+      } catch(e) {
+        console.log(e)
+        Alert.alert("Error", "There was an error getting your session. Please try again later.")
+      }
+    }
+  
+    React.useEffect(() => {
+      getSessionId().then((value) => {
+        setSessionId(value)
+
+        if (value === null) {
+          navigation.navigate("Onboarding")
+        }
+      })
+    }, [])
 
   return (
 

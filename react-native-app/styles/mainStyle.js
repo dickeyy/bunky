@@ -44,6 +44,11 @@ const mainStyles = StyleSheet.create({
         textAlign: 'center',
     },
 
+    headerLogo: {
+        width: 35,
+        height: 35,
+    },
+
     footerIcon: {
         width: 50,
         height: 50,

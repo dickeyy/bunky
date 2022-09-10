@@ -43,10 +43,10 @@ function Footer(props) {
         <View style={mainStyles.footer}>
 
             { isHome ? 
-                <Image source={require('../assets/home-icon-active.png')} style={mainStyles.footerIconSmallActive} /> :
+                <Image source={require('../assets/logo-07.png')} style={mainStyles.footerIconActive} /> :
                 
                 <Pressable onPress={() => props.navigation.navigate('Home')}>
-                    <Image source={require('../assets/home-icon.png')} style={mainStyles.footerIconSmall} /> 
+                    <Image source={require('../assets/logo-10.png')} style={mainStyles.footerIconBig} /> 
                 </Pressable>
             }
 

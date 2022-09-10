@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ChakraProvider, Text, Link, Badge, Button, Box, Image, ColorModeScript, Show, Drawer, useDisclosure, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Hide } from '@chakra-ui/react';
 import { NavLink } from "react-router-dom";
+import Logo from  '../assets/app-logo-06.png'
 import theme from '../theme';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { GiHamburger, GiHamburgerMenu } from 'react-icons/gi';
@@ -120,11 +121,26 @@ function Header() {
             >
 
                 <Show breakpoint='(max-width: 380px)'>
+                    <NavLink to={'/'}>
+                        <Link>
+                            <a>
+                                <Image w={'45px'} mt={'-15px'} justifyContent={'left'} pos={'absolute'} left={'10px'} alignItems={'center'} src={Logo} alt='logo' />
+                            </a>
+                        </Link>
+                    </NavLink>
                 </Show>
 
                 <Hide breakpoint='(max-width: 380px)'>
 
-                <Text fontSize={25} ml={20} mr={2} fontWeight={800} mt={'-2.5'}>Bunky</Text>
+                <NavLink to={'/'}>
+                    <Link>
+                        <a>
+                            <Image w={'45px'} mt={'-25px'} justifyContent={'left'} pos={'absolute'} left={'20px'} alignItems={'center'} src={Logo} alt='logo' />
+                        </a>
+                    </Link>
+                </NavLink>
+
+                <Text fontSize={25} ml={20} mr={2} fontWeight={800} mt={'-2'}>bunky</Text>
 
                 <Badge variant='solid' colorScheme='purple' mt={-1.5}>
                     Beta

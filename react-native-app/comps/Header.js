@@ -5,8 +5,9 @@ function Header(props) {
     return (
         
         <View style={mainStyles.header}>
-            
-            <Text style={mainStyles.headerTitle}>Bunky</Text>
+
+            <Image source={require('../assets/logo-07.png')} style={mainStyles.headerLogo} />
+            <Text style={mainStyles.headerTitle}>unky</Text>
 
         </View>
 

@@ -1,6 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, Button, ImageBackground, Image, SafeAreaView, Pressable, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform, Alert } from 'react-native';
+import { Text, View, Button, ImageBackground, Image, SafeAreaView, Pressable, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform, Alert, ActivityIndicator } from 'react-native';
 import React, { useState, useRef } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
@@ -48,16 +48,14 @@ const OnboardingLocationPage = ({ navigation })  => {
           return;
         }
   
-        let location = await Location.getCurrentPositionAsync({});
+        const location = await Location.getCurrentPositionAsync({});
         let regionName = await Location.reverseGeocodeAsync({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
         });
 
-        const cityState = regionName[0].city + ", " + regionName[0].region + ", "
+        const cityState = regionName[0].city + ", " + regionName[0].region
         setLocation(cityState);
-
-        console.log(cityState)
 
         fetch('https://6lcdbjork2.execute-api.us-east-1.amazonaws.com/onboard/set_location', {
             method: 'POST',
@@ -67,13 +65,16 @@ const OnboardingLocationPage = ({ navigation })  => {
             },
             body: JSON.stringify({
                 sessionId: sessionId,
-                location: cityState
+                location: cityState,
+                longitude: String(location.coords.longitude),
+                latitude: String(location.coords.latitude),
             })
         }) .then((response) => response.json())
         .then((json) => {
             if (json.message == 'User updated') {
                 navigation.navigate("Home")
             } else {
+                console.log(json)
                 Alert.alert("Error", "There was an error verifying the session data. Please try again later.")
             }
         }
@@ -92,9 +93,19 @@ const OnboardingLocationPage = ({ navigation })  => {
 
                     <Text style={onboardingStyles.homeSubtitleText}>So we can match you with people close to your current location!</Text>
 
+                      {isLoading ? (
+                        <View style={onboardingStyles.homeNameInputContainer}>
+                          <ActivityIndicator size="large" color="#0000ff" />
+                        </View>
+                      ) : (
                         <Pressable disabled={isLoading} style={onboardingStyles.homePhoneInputButton} onPress={() => { shareLocation() }}>
                             <Text style={onboardingStyles.homePhoneInputButtonText}>Share Location</Text>
                         </Pressable>
+                      )}
+
+                      {/* <Pressable disabled={isLoading} style={onboardingStyles.homePhoneInputButton} onPress={() => { shareLocation() }}>
+                            <Text style={onboardingStyles.homePhoneInputButtonText}>Share Location</Text>
+                        </Pressable> */}
 
                     </View>
 

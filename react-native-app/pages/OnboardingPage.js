@@ -24,10 +24,42 @@ const OnboardingPage = ({ navigation }) => {
       getSessionId().then((value) => {
         setSessionId(value)
 
-        if (value !== null) {
+        if (value !== undefined) {
           navigation.navigate('Home')
         }
+
+        if (value === undefined) {
+          navigation.navigate('Onboarding1')
+        }
       })
+
+    // const clearSessionId = async () => {
+    //   try {
+    //     await AsyncStorage.removeItem('@session_id')
+    //   } catch(e) {
+    //     console.log(e)
+    //     Alert.alert("Error", "There was an error clearing your session. Please try again later.")
+    //   }
+    // }
+
+    // clearSessionId().then(() => {
+    //   console.log("Session cleared")
+    // })
+
+    // const clearAll = async () => {
+    //   try {
+    //     await AsyncStorage.clear()
+    //   } catch(e) {
+    //     // clear error
+    //   }
+    
+    //   console.log('Done.')
+    // }
+
+    React.useEffect(() => {
+      getSessionId()
+      // clearSessionId()
+    }, [])
 
   return (
     <SafeAreaView style={mainStyles.container}>

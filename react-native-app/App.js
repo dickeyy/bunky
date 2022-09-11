@@ -17,6 +17,7 @@ import HomePage from './pages/HomePage';
 import FullPageProfileViewPage from './comps/FullPageProfileViewPage';
 import OnboardingCodeEnterPage from './pages/OnboardingCodeEnterPage';
 import OnboardingLocationPage from './pages/OnboardingGetLocationPage';
+import AccountPage from './pages/AccountPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,79 +29,85 @@ const App = () => {
         <Stack.Screen
           name="Onboarding1"
           component={OnboardingPage}
-          options={{ headerShown: false, animation: 'none' }}
+          options={{ headerShown: false, animation: 'none', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="PurposeSelection"
           component={PurposeSelectionPage}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="HomePurposeOnboarding"
           component={HomePurposeOnboardingPage}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="DormPurposeOnboarding"
           component={DormPurposeOnboardingPage}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="OnboardingCodeEnter"
           component={OnboardingCodeEnterPage}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="ProfileCreation1"
           component={ProfileCreationPage1}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="ProfileCreation2"
           component={ProfileCreationPage2}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="ProfileCreation3"
           component={ProfileCreationPage3}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="ProfileCreation4"
           component={ProfileCreationPage4}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="ProfileCreation5"
           component={ProfileCreationPage5}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="OnboardingLocation"
           component={OnboardingLocationPage}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="FullPageProfileView"
           component={FullPageProfileViewPage}
-          options={{ headerShown: false, animation: 'none' }}
+          options={{ headerShown: false, animation: 'none', gestureEnabled: false }}
         />
 
         <Stack.Screen
           name="Home"
           component={HomePage}
-          options={{ headerShown: false, animation: 'none' }}
+          options={{ headerShown: false, animation: 'none', gestureEnabled: false }}
+        />
+
+        <Stack.Screen
+          name="Account"
+          component={AccountPage}
+          options={{ headerShown: false, animation: 'none', gestureEnabled: false }}
         />
 
 

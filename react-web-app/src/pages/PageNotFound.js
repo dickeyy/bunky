@@ -16,6 +16,8 @@ function PageNotFound() {
   return (
     <Box w='20vw' theme={theme} flexDirection="column">
 
+      <Header />
+
       <Heading fontSize={50} textAlign='center' fontWeight={700}>404 Page Not Found</Heading>
 
     </Box>

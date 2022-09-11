@@ -104,10 +104,15 @@ app.post('/auth/send_phone_code', (req, res) => {
   // Get the number from body
   const { number } = req.body;
 
+  const num1 = number.replace(/\s/g, '');
+  const num2 = num1.replace(/\(/g, '');
+  const num2_1 = num2.replace(/\)/g, '');
+  const num3 = num2_1.replace(/-/g, '');
+
   // Make a request to the twilio api
   twilioClient.verify.v2.services(process.env.TWILIO_SERVICE_ID)
     .verifications
-    .create({to: number, channel: 'sms'})
+    .create({to: num3, channel: 'sms'})
     .then(verification => {
       
       // Send the response
@@ -136,68 +141,113 @@ app.post('/auth/verify_phone_code', async (req, res) => {
   // Get the number from body
   const { number, code } = req.body;
 
-  // Make a request to the twilio api
-  twilioClient.verify.v2.services(process.env.TWILIO_SERVICE_ID)
+  const num1 = number.replace(/\s/g, '');
+  const num2 = num1.replace(/\(/g, '');
+  const num2_1 = num2.replace(/\)/g, '');
+  const num3 = num2_1.replace(/-/g, '');
+
+  const userDoc = await db.collection('users').findOne({phoneNumber: num3});
+
+  if (userDoc) {
+    twilioClient.verify.v2.services(process.env.TWILIO_SERVICE_ID)
     .verificationChecks
-    .create({to: number, code: code})
+    .create({to: num3, code: code})
     .then(verification_check => {
-      // Send the response
       if (verification_check.status === 'approved') {
 
-        const encryptPass = genPass();
-
-        // save user Data
-        const user = {
-          uId: uidgen.generateSync(),
-          phoneNumber: encryptData(number, encryptPass),
-          isVerified: false,
-          encryptPassword: encryptData(encryptPass, getMasterPass()),
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          pictures: [],
-          likes: [],
-          dislikes: [],
-          matches: [],
-        }
-
         const sessionData = {
-          uId: user.uId,
           sessionId: genSessionId(),
+          userId: userDoc.uId,
         }
-        
-        db.collection("users").insertOne(user, function(err, docRes) {
+    
+        db.collection("sessions").insertOne(sessionData, function(err, docRes) {
           if (err) {
             return res.status(500).json({
-              message: 'Error saving user',
+              message: 'Error saving session',
               err
             })
-          };
+          } else {
+            return res.status(200).json({
+              message: 'Verification code approved',
+              sessionData
+            })
+          }
+        });
+      } else {
+        return res.status(403).json({
+          message: 'Verification code not approved',
+        })
+      }
+    })
+  } else {
 
-          db.collection("sessions").insertOne(sessionData, function(err, docRes) {
+
+    // Make a request to the twilio api
+    twilioClient.verify.v2.services(process.env.TWILIO_SERVICE_ID)
+      .verificationChecks
+      .create({to: num3, code: code})
+      .then(verification_check => {
+        // Send the response
+        if (verification_check.status === 'approved') {
+
+          const encryptPass = genPass();
+
+          // console.log(device.Device.brand)
+
+          // save user Data
+          const user = {
+            uId: uidgen.generateSync(),
+            phoneNumber: num3,
+            isVerified: false,
+            encryptPassword: encryptData(encryptPass, getMasterPass()),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            pictures: [],
+            likes: [],
+            dislikes: [],
+            matches: [],
+          }
+
+          const sessionData = {
+            uId: user.uId,
+            sessionId: genSessionId(),
+
+          }
+          
+          db.collection("users").insertOne(user, function(err, docRes) {
             if (err) {
               return res.status(500).json({
-                message: 'Error saving session',
+                message: 'Error saving user',
                 err
               })
             };
 
-            return res.status(200).json({
-              message: 'User verified and created',
-              sessionData: sessionData.sessionId,
-              verification_check
+            db.collection("sessions").insertOne(sessionData, function(err, docRes) {
+              if (err) {
+                return res.status(500).json({
+                  message: 'Error saving session',
+                  err
+                })
+              };
+
+              return res.status(200).json({
+                message: 'User verified and created',
+                sessionData: sessionData.sessionId,
+                verification_check
+              });
+            
             });
-          
+
           });
 
-        });
-
-      } else if(verification_check.status === 'pending') {
-        return res.status(403).json({
-          message: 'Invalid Code',
-          verification_check
-        })
-      }
-    })
+        } else if(verification_check.status === 'pending') {
+          return res.status(403).json({
+            message: 'Invalid Code',
+            verification_check
+          })
+        }
+      })
+  }
   
 })
 
@@ -318,15 +368,15 @@ app.post('/onboard/set_user_data', async (req, res) => {
   const sessionData = await db.collection('sessions').findOne({sessionId: sessionId});
 
   if (sessionData) {
-    const userData = await db.collection('users').findOne({uId: sessionData.uId});
+    const doc = await db.collection('users').findOne({uId: sessionData.uId});
 
-    if (userData) {
-      const encryptPass = decryptData(userData.encryptPassword, getMasterPass());
+    if (doc) {
+      const encryptPass = decryptData(doc.encryptPassword, getMasterPass());
 
       // Update user data
       const updateData = {
         $set: {
-          userData: {
+          personalData: {
             age: encryptData(userData.age, encryptPass),
             pronouns: encryptData(userData.pronouns, encryptPass),
             jobTitle: encryptData(userData.jobTitle, encryptPass),
@@ -494,7 +544,7 @@ app.post('/onboard/upload_profile_pic', upload.array('image'), async (req, res, 
 
 // set location
 app.post('/onboard/set_location', async (req, res) => {
-  const { sessionId, location } = req.body;
+  const { sessionId, location, longitude, latitude, } = req.body;
 
   // Get user data
   const sessionData = await db.collection('sessions').findOne({sessionId: sessionId});
@@ -508,7 +558,11 @@ app.post('/onboard/set_location', async (req, res) => {
       // Update user data
       const updateData = {
         $set: {
-          location: encryptData(location, encryptPass),
+          locationData: {
+            cityState: encryptData(location, encryptPass),
+            longitude: encryptData(longitude, encryptPass),
+            latitude: encryptData(latitude, encryptPass),
+          },
           updatedAt: new Date(),
         }
       }
@@ -546,8 +600,16 @@ app.post('/onboard/set_location', async (req, res) => {
 
 
 
-app.get('/images/:key', (req, res) => {
+app.get('/fetch/image/:key', (req, res) => {
   const key = req.params.key
+  const sessionId = req.headers.authorization;
+
+  if (sessionId == null) {
+    return res.status(503).json({
+      message: 'Unathorized',
+    })
+  }
+
   const readStream = getFileStream(key)
 
   readStream.pipe(res)
@@ -555,24 +617,108 @@ app.get('/images/:key', (req, res) => {
 
 
 // fetch user data
-app.get('/fetch/user', async (req, res) => {
+app.get('/fetch/user/:id', async (req, res) => {
   // Get the id from body
-  const { uId } = req.query;
+  const uId = req.params.id
+  const sessionId = req.headers.authorization;
 
-  // get data from mongo
-  const doc = await db.collection("users").findOne( { uId: uId } )
-
-  if (doc === null) {
-    return res.status(404).json({
-      message: 'User not found',
+  if (sessionId == null) {
+    return res.status(503).json({
+      message: 'Unathorized',
     })
   }
-    
-  return res.status(200).json({
-    message: 'User fetched',
-    data: doc,
-    masterPass: encryptData(getMasterPass(), doc.encryptPassword)
-  });
+
+  // validate session
+  const sessionData = await db.collection('sessions').findOne({sessionId: sessionId});
+
+  if (sessionData) {
+    // get data from mongo
+    const doc = await db.collection("users").findOne( { uId: uId } )
+
+    if (doc === null) {
+      return res.status(404).json({
+        message: 'User not found',
+      })
+    }
+
+    const encryptPass = decryptData(doc.encryptPassword, getMasterPass());
+      
+    return res.status(200).json({
+      message: 'User fetched',
+      doc,
+      masterPass: encryptData(getMasterPass(), doc.encryptPassword),
+    });
+  }
+
+})
+
+// fetch me
+app.get('/fetch/me', async (req, res) => {
+  const sessionId = req.headers.authorization;
+
+  if (sessionId == null) {
+    return res.status(503).json({
+      message: 'Unathorized',
+    })
+  }
+
+  // validate session
+  const sessionData = await db.collection('sessions').findOne({sessionId: sessionId});
+
+  if (sessionData) {
+
+    const doc = await db.collection("users").findOne( { uId: sessionData.userId } )
+
+    if (doc === null) {
+      return res.status(404).json({
+        message: 'User not found',
+      })
+    }
+
+    const encryptPass = decryptData(doc.encryptPassword, getMasterPass());
+
+    return res.status(200).json({
+      message: 'User fetched',
+      doc,
+      masterPass: encryptData(getMasterPass(), doc.encryptPassword),
+    });
+  }
+
+})
+
+// logout
+app.get('/auth/logout', async (req, res) => {
+  const sessionId = req.headers.authorization;
+
+  if (sessionId == null) {
+    return res.status(403).json({
+      message: 'Unathorized',
+    })
+  }
+
+  // validate session
+  const sessionData = await db.collection('sessions').findOne({sessionId: sessionId});
+
+  if (sessionData) {
+    // delete session
+    db.collection("sessions").deleteOne({sessionId: sessionId}, function(err, obj) {
+      if (err) {
+        return res.status(500).json({
+          message: 'Error deleting session',
+          err
+        })
+      };
+
+      return res.status(200).json({
+        message: 'Session deleted',
+      });
+
+    });
+  } else {
+    return res.status(404).json({
+      message: 'Session not found',
+    })
+  }
 })
 
 // Set 404 Page

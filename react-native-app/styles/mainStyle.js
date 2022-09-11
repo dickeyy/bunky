@@ -20,10 +20,22 @@ const mainStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        top: -70,
+        top: -75,
         flex: 1,
         flexDirection: 'row',
     },
+
+    headerScrollView: {
+      width: '100%',
+      height: 60,
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      top: 40,
+      flex: 1,
+      flexDirection: 'row',
+      backgroundColor: '#f2f2f2',
+  },
 
     footer: {
       width: '100%',
@@ -34,6 +46,7 @@ const mainStyles = StyleSheet.create({
       bottom: 0,
       flex: 1,
       flexDirection: 'row',
+      backgroundColor: '#f2f2f2',
   },
 
     headerTitle: {
@@ -103,6 +116,20 @@ const mainStyles = StyleSheet.create({
     marginLeft: 25,
   },
 
+  profileCardImageContainer: {
+    width: '100%',
+    height: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 1,
+    flex: 1,
+    flexDirection: 'row',
+    borderColor: '#6320EE',
+    borderWidth: 2,
+    borderRadius: 20,
+  },
+
   profileCard: {
     width: '90%',
     height: '70%',
@@ -112,10 +139,8 @@ const mainStyles = StyleSheet.create({
     top: 20,
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#6320EE',
+    backgroundColor: '#8d8d8d',
     borderRadius: 20,
-    borderColor: '#6320EE',
-    borderWidth: 2,
   },
 
   profileCardImage: {
@@ -417,6 +442,100 @@ const mainStyles = StyleSheet.create({
     fontWeight: '800',
     marginTop: 5,
   },
+
+  accountProfileImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    marginBottom: 20,
+    marginTop: 90,
+    borderColor: '#6320EE',
+    borderWidth: 4,
+  },
+
+  accountProfileImageContainer: {
+    width: '100%',
+    height: 300,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  editProfileIcon: {
+    width: 50,
+    height: 50,
+  },
+
+  editProfileButton: {
+    shadowColor: 'rgba(0, 0, 0, .5)',
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 5,
+    width: 90,
+    height: 90,
+    backgroundColor: '#DBDBDB',
+    borderRadius: 50,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+
+  settingsProfileIcon: {
+    width: 35,
+    height: 35,
+  },
+
+  settingsProfileButton: {
+    shadowColor: 'rgba(0, 0, 0, .5)',
+    shadowOffset: {width: 0, height: 0},
+    shadowRadius: 5,
+    width: 60,
+    height: 60,
+    backgroundColor: '#DBDBDB',
+    borderRadius: 50,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    marginRight: 40,
+    marginLeft: 40,
+  },
+
+  accountButtonRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+
+  settingsProfileText: {
+    fontSize: 15,
+    fontWeight: '800',
+    marginTop: 10,
+    textAlign: 'center',
+  },
+
+  logoutButton: {
+    width: '80%',
+    height: 50,
+    backgroundColor: "rgba(230, 2, 2, 0.25)",
+    borderRadius: 15,
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    marginRight: 40,
+    marginLeft: 40,
+  },
+
+  logoutButtonText: {
+    fontSize: 25,
+    fontWeight: '800',
+    color: 'rgba(230, 2, 2, 1)',
+    textAlign: 'center',
+  }
   
 });
 

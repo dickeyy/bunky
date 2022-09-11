@@ -8,7 +8,11 @@ function ProfileCard(props) {
         
         <Animated.View style={mainStyles.profileCard}>
 
-            <Image source={{uri: props.image}} style={mainStyles.profileCardImage} />
+            <View style={mainStyles.profileCardImageContainer}>
+
+                <Image source={{uri: props.image}} style={mainStyles.profileCardImage} />
+            
+            </View>
 
             
 

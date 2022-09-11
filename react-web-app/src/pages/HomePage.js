@@ -5,6 +5,7 @@ import { useSearchParams, useLocation } from "react-router-dom"
 
 // Components
 import Header from '../comps/Header';
+import Footer from '../comps/Footer';
 
 function HomePage() {
 
@@ -18,7 +19,9 @@ function HomePage() {
 
       <Header />
 
-      <Heading fontSize={50} textAlign='center' fontWeight={700}>Coming Soon...</Heading>
+      <Heading fontSize={50} textAlign='center' fontWeight={700} mt={30}>Coming Soon...</Heading>
+
+      {/* <Footer /> */}
 
     </Box>
   );

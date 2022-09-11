@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, Button, ImageBackground, Image, SafeAreaView, Pressable, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform, Alert } from 'react-native';
+import { Text, View, Button, ImageBackground, Image, SafeAreaView, Pressable, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform, Alert, Animated } from 'react-native';
 import React, { useState, useRef } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 var ageCalculator = require('age-calculator');
 let {AgeFromDateString, AgeFromDate} = require('age-calculator');
+import DatePicker from 'react-native-datepicker';
 
 // Import Styles
 import mainStyles from '../styles/mainStyle';
@@ -39,6 +40,12 @@ const ProfileCreationPage3 = ({ navigation }) => {
     const [company, onChangeCompany] = React.useState(null);
     const [school, onChangeSchool] = React.useState(null);
     const [bio, onChangeBio] = React.useState(null);
+
+    const [date, setDate] = React.useState(null);
+
+    React.useState(() => {
+        console.log(date)
+    }, [date])
 
     const checkSelect = (id) => {
         
@@ -128,18 +135,30 @@ const ProfileCreationPage3 = ({ navigation }) => {
         setSessionId(value)
       })
     }, [])
+
+    React.useEffect(() => {
+
+        if (birthdayEntered != null) {
+            setBirthYear(birthdayEntered.substring(0, 4))
+            setBirthMonth(birthdayEntered.substring(4, 6))
+            setBirthDay(birthdayEntered.substring(6, 8))
+
+            let ageFromString = new AgeFromDate(new Date(birthYear, birthMonth - 1, birthDay)).age;;
+            console.log(birthYear, birthMonth, birthDay)
+
+            console.log(ageFromString)
+
+            setAge(ageFromString)
+            console.log(String(age))
+        }
+    }, [birthdayEntered])
   
     const setData = (navigation) => {
       if (birthdayEntered == null ) {
         return
       }
 
-        setBirthYear(birthdayEntered.substring(0, 4))
-        setBirthMonth(birthdayEntered.substring(4, 6))
-        setBirthDay(birthdayEntered.substring(6, 8))
-
-        let ageFromString = new AgeFromDate(new Date(birthYear, birthMonth - 1, birthDay)).age;;
-        setAge(ageFromString)
+        
       
       fetch('https://6lcdbjork2.execute-api.us-east-1.amazonaws.com/onboard/set_user_data', {
           method: 'POST',
@@ -150,7 +169,7 @@ const ProfileCreationPage3 = ({ navigation }) => {
           body: JSON.stringify({
             sessionId: sessionId,
             userData: {
-                age: age,
+                age: String(age),
                 pronouns: pronouns,
                 jobTitle: jobTitle,
                 company: company,
@@ -202,6 +221,33 @@ const ProfileCreationPage3 = ({ navigation }) => {
                             textContentType='date'
                             keyboardType='numeric'
                         />
+
+                        {/* <DatePicker
+                            style={mainStyles.datePickerStyle}
+                            mode="date" //The enum of date, datetime and time
+                            placeholder="select date"
+                            format="DD-MM-YYYY"
+                            minDate="01-01-1900"
+                            maxDate="01-01-2100"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                                dateIcon: {
+                                //display: 'none',
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0,
+                                },
+                                dateInput: {
+                                marginLeft: 36,
+                                },
+                            }}
+                            onDateChange={(date) => {
+                                setDate(date);
+                            }}
+                            useNativeDriver={true}
+                            />        */}
 
                         <Text style={onboardingStyles.questionaireQuestion}>What are your pronouns?</Text> 
                         <TextInput

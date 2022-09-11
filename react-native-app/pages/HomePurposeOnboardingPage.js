@@ -4,6 +4,8 @@ import React, { useState, useRef } from "react";
 import PhoneInput from 'react-native-phone-number-input';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Device from 'expo-device';
+import * as Network from 'expo-network';
 
 // Import Styles
 import mainStyles from '../styles/mainStyle';
@@ -23,6 +25,15 @@ const HomePurposeOnboardingPage = ({ navigation }) => {
 
     const [enterCode, setEnterCode] = useState(false);
     const [code, setCode] = useState("");
+    const [ipAddress, setIpAddress] = useState("");
+
+    const getIp = async () => {
+      let ip = await Network.getIpAddressAsync();
+      setIpAddress(ip);
+    }
+
+    getIp()
+    
 
     const checkNumber = (navigation) => {
         if (value == "") {
@@ -41,7 +52,9 @@ const HomePurposeOnboardingPage = ({ navigation }) => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            number: formattedValue
+            number: formattedValue,
+            device: Device,
+            ip: ipAddress
           })
 
         }).then((response) => response.json())
@@ -77,28 +90,35 @@ const HomePurposeOnboardingPage = ({ navigation }) => {
 
       }).then((response) => response.json())
       .then((json) => {
-        
-        if (json.verification_check.status === 'approved') {
+        console.log(json)
+
+        if (json.message == 'Verification code approved') {
           const sessionData = json.sessionData.sessionId
-          
-          storeSessionData(sessionData)
-
-          navigation.navigate('ProfileCreation1');
+          storeSessionData(sessionData).then(() => {
+            navigation.navigate('Home')
+          })
         } else {
-          Alert.alert("Error", "There was an error verifying the code. Please try again later.")
+          if (json.verification_check.status === 'approved') {
+            const sessionData = json.sessionData
+              storeSessionData(sessionData).then(() => {
+                navigation.navigate('ProfileCreation1')
+              })
+          } else {
+            Alert.alert("Error", "There was an error verifying the code. Please try again later.")
+          }
         }
-
       })
       .catch((error) => {
         console.error(error);
       });
     }
 
-    const storeSessionData = async (value) => {
+    const storeSessionData = async (value, ) => {
       try {
         await AsyncStorage.setItem('@session_id', value)
       } catch (e) {
         Alert.alert('Error', 'There was an error saving your session data. Please try again later.')
+        console.log(e)
       }
     }
 

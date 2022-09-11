@@ -1,9 +1,13 @@
 import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, Button, ImageBackground, Image, SafeAreaView, Pressable, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform } from 'react-native';
+import { Text, View, Button, ImageBackground, Image, SafeAreaView, Pressable, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView, Platform, Alert, ActivityIndicator } from 'react-native';
 import React, { useState, useRef, useEffect } from "react";
 import {useRoute} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CryptoJS from "react-native-crypto-js";
+import axios from 'axios';
+import * as Location from 'expo-location';
+import { getPreciseDistance, convertDistance } from 'geolib';
 
 // Import Styles
 import mainStyles from '../styles/mainStyle';
@@ -21,34 +25,40 @@ import Line from '../comps/Line';
 
 const HomePage = ({ navigation, id })  => {
 
+  const [loading, setLoading] = useState(true);
+
   // Personal Info
   const [uId, setId] = useState(null);
-  const [image, setImage] = useState('https://i.imgur.com/vKi7nE2.jpg');
-  const [firstName, setFirstName] = useState('Kyle');
-  const [lastName, setLastName] = useState('Dickey');
-  const [bio, setBio] = useState('I am really cool!');
-  const [location, setLocation] = useState('Flagstaff, AZ');
-  const [distance, setDistance] = useState('1 Mile Away');
-  const [jobTitle, setJobTitle] = useState('Cashier');
-  const [company, setCompany] = useState('Target')
-  const [school, setSchool] = useState('Northern Arizona University');
-  const [age, setAge] = useState('18');
-  const [pronouns, setPronouns] = useState('He / Him');
-  const [gender, setGender] = useState('Man');
-  const [orientation, setOrientation] = useState('Straight');
-  const [verified, setVerified] = useState(true);
+  const [image, setImage] = useState(null);
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, setLastName] = useState(null);
+  const [bio, setBio] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [jobTitle, setJobTitle] = useState(null);
+  const [company, setCompany] = useState(null)
+  const [school, setSchool] = useState(null);
+  const [age, setAge] = useState(null);
+  const [pronouns, setPronouns] = useState(null);
+  const [gender, setGender] = useState(null);
+  const [orientation, setOrientation] = useState(null);
+  const [verified, setVerified] = useState(null);
 
   // Roomate questionaire info
-  const [bedTime, setBedTime] = useState('12 AM')
-  const [wakeUpTime, setWakeUpTime] = useState('9 AM')
-  const [okayWithGuests, setOkayWithGuests] = useState('Yes')
-  const [howOftenHaveGuests, setHowOftenHaveGuests] = useState('Sometimes')
-  const [showerTime , setShowerTime] = useState('Morning')
-  const [cookOrder, setCookOrder] = useState('Order')
-  const [keepSpaceClean, setKeepSpaceClean] = useState('Very important to me')
-  const [noiseLevel, setNoiseLevel] = useState('High')
-  const [lgbtComfort, setLgbtComfort] = useState('Very comfortable')
-  const [smoker, setSmoker] = useState('Never');
+  const [bedTime, setBedTime] = useState(null)
+  const [wakeUpTime, setWakeUpTime] = useState(null)
+  const [okayWithGuests, setOkayWithGuests] = useState(null)
+  const [howOftenHaveGuests, setHowOftenHaveGuests] = useState(null)
+  const [showerTime , setShowerTime] = useState(null)
+  const [cookOrder, setCookOrder] = useState(null)
+  const [keepSpaceClean, setKeepSpaceClean] = useState(null)
+  const [noiseLevel, setNoiseLevel] = useState(null)
+  const [lgbtComfort, setLgbtComfort] = useState(null)
+  const [smoker, setSmoker] = useState(null);
+
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [distance, setDistance] = useState(null);
+  const [locUpdated, setLocUpdated] = useState(false);
 
   const [fullPage, setFullPage] = useState(false);
 
@@ -59,24 +69,129 @@ const HomePage = ({ navigation, id })  => {
     const getSessionId = async () => {
       try {
         const value = await AsyncStorage.getItem('@session_id')
+        console.log(value);
         if(value !== null) {
           return value
         }
       } catch(e) {
-        console.log(e)
         Alert.alert("Error", "There was an error getting your session. Please try again later.")
       }
     }
   
     React.useEffect(() => {
+
       getSessionId().then((value) => {
         setSessionId(value)
 
         if (value === null) {
           navigation.navigate("Onboarding")
-        }
+        } 
       })
     }, [])
+
+    const decrypt = (text, password) => {
+      var data = CryptoJS.AES.decrypt(text, password);
+      var decryptedData = data.toString(CryptoJS.enc.Utf8);
+      return decryptedData;
+    }
+
+    React.useEffect(() => {
+      if (sessionId !== "") {
+        getUser()
+      }
+    }, [sessionId])
+
+    React.useEffect(() => {
+      if (longitude !== null && latitude !== null && locUpdated === false) {
+
+        updateLocation()
+      }
+    }, [longitude, latitude])
+
+
+    const getUser = () => {
+      const request = axios.get('https://6lcdbjork2.execute-api.us-east-1.amazonaws.com/fetch/user/XKWiab9B8WyKAsdsDe1aLr', {
+        headers: {
+          'Authorization': sessionId
+          }
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              const data = response.data
+              const user = data.doc
+              
+              var masterPass = decrypt(data.masterPass, user.encryptPassword)
+              var encryptPassword = decrypt(user.encryptPassword, masterPass)
+
+              setFirstName(decrypt(user.firstName, encryptPassword))
+              setLastName(decrypt(user.lastName, encryptPassword))
+              setBio(decrypt(user.personalData.bio, encryptPassword))
+              setLocation(decrypt(user.locationData.cityState, encryptPassword))
+              setAge(decrypt(user.personalData.age, encryptPassword))
+              setVerified(user.isVerified)
+              setPronouns(decrypt(user.personalData.pronouns, encryptPassword))
+              setGender(decrypt(user.personalData.gender, encryptPassword))
+              setOrientation(decrypt(user.personalData.sexuality, encryptPassword))
+              setJobTitle(decrypt(user.personalData.jobTitle, encryptPassword))
+              setCompany(decrypt(user.personalData.company, encryptPassword))
+              setSchool(decrypt(user.personalData.school, encryptPassword))
+
+              setBedTime(decrypt(user.livingData.bedTime, encryptPassword))
+              setWakeUpTime(decrypt(user.livingData.wakeTime, encryptPassword))
+              setOkayWithGuests(decrypt(user.livingData.okayWithGuests, encryptPassword))
+              setHowOftenHaveGuests(decrypt(user.livingData.howOftenHaveGuests, encryptPassword))
+              setShowerTime(decrypt(user.livingData.showerTime, encryptPassword))
+              setCookOrder(decrypt(user.livingData.cookOrder, encryptPassword))
+              setKeepSpaceClean(decrypt(user.livingData.keepSpaceClean, encryptPassword))
+              setNoiseLevel(decrypt(user.livingData.noiseLevel, encryptPassword))
+              setLgbtComfort(decrypt(user.livingData.lgbtComfort, encryptPassword))
+              setSmoker(decrypt(user.livingData.smoker, encryptPassword))
+
+              setLatitude(decrypt(user.locationData.latitude, encryptPassword))
+              setLongitude(decrypt(user.locationData.longitude, encryptPassword))
+
+              var imageUrl = decrypt(user.pictures.location, encryptPassword)
+
+              setImage(imageUrl)
+
+              setLoading(false)
+
+            } else {
+              Alert.alert("Error", "There was an error getting user profile. Please try again later.")
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+    }
+
+    const updateLocation = async () => {
+
+      let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert("Error", "Permission to access location was denied");
+          return;
+        }
+  
+        let location = await Location.getCurrentPositionAsync({});
+        let regionName = await Location.reverseGeocodeAsync({
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+        });
+
+        const cityState = regionName[0].city + ", " + regionName[0].region
+
+        var dis = getPreciseDistance(
+          { latitude: latitude, longitude: longitude },
+          { latitude: location.coords.latitude, longitude: location.coords.longitude }
+        );
+
+        const disMiles = dis / 1.60934
+
+        setDistance(Math.round(disMiles))
+
+        setLocUpdated(true)
+    }
 
   return (
 
@@ -159,6 +274,13 @@ const HomePage = ({ navigation, id })  => {
                   </View> 
                 ) : null }
 
+                {distance ? (
+                  <View style={mainStyles.fullProfileInfoRow3}>
+                    <Image source={require("../assets/trip-icon.png")} style={mainStyles.jobIcon} />
+                    <Text style={mainStyles.fullProfileJob}>About {distance} mile(s) away</Text>
+                  </View> 
+                ) : null }
+
                 {bio ? (
                   <View style={mainStyles.fullProfileInfoRow3}>
                     <Image source={require("../assets/star-icon.png")} style={mainStyles.jobIcon} />
@@ -234,24 +356,33 @@ const HomePage = ({ navigation, id })  => {
         <View style={mainStyles.container}>
         <StatusBar hidden={false} style={'dark'} /> 
         
-        <Header navigation={navigation}/>
-        <ProfileCard image={image} firstName={firstName} age={age} lastName={lastName} pronouns={pronouns} id={id} navigation={navigation} isVerified={verified}/>
+        <Header navigation={navigation} style={mainStyles.header}/>
 
-        <Pressable style={mainStyles.infoIconButton} onPress={() => { setFullPage(true) }}>
-          <Image style={mainStyles.infoIcon} source={require('../assets/info-icon.png')} />
-        </Pressable>
+        {loading ? (
+          <View style={mainStyles.loadingContainer}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        ) : (
+          <>
+            <ProfileCard image={image} firstName={firstName} age={age} lastName={lastName} pronouns={pronouns} id={id} navigation={navigation} isVerified={verified}/>
+
+            <Pressable style={mainStyles.infoIconButton} onPress={() => { setFullPage(true) }}>
+              <Image style={mainStyles.infoIcon} source={require('../assets/info-icon.png')} />
+            </Pressable>
+
+            <View style={mainStyles.likeContainer}>
+              <Pressable>
+                <Image source={require('../assets/dislike-icon.png')} style={mainStyles.dislikeIcon} />
+              </Pressable>
+
+              <Pressable onPress={() => { getUser() }}>
+                <Image source={require('../assets/like-icon.png')} style={mainStyles.likeIcon} />
+              </Pressable>
+            </View>
+          </>
+        )}
 
         <Footer navigation={navigation} route={route.name}/>
-
-        <View style={mainStyles.likeContainer}>
-          <Pressable>
-            <Image source={require('../assets/dislike-icon.png')} style={mainStyles.dislikeIcon} />
-          </Pressable>
-
-          <Pressable>
-            <Image source={require('../assets/like-icon.png')} style={mainStyles.likeIcon} />
-          </Pressable>
-        </View>
 
     </View>
       )}

@@ -260,11 +260,12 @@ const AccountPage = ({ navigation, id })  => {
             </View>
 
             </ScrollView>
-            <Header navigation={navigation} style={mainStyles.headerScrollView}/>
             <Spacer height={120} />
             <Footer navigation={navigation} route={route.name}/>
         </SafeAreaView>
       )}
+      <Header navigation={navigation} style={mainStyles.headerScrollView}/>
+      <Footer navigation={navigation} route={route.name}/>
     </>
   );
 }

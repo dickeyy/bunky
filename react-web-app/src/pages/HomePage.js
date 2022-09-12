@@ -54,7 +54,7 @@ function HomePage() {
         </Text>
 
         <Input 
-          placeholder="Enter your email"
+          placeholder="Email"
           size="lg"
           width={'30vw'}
           color={'white'}

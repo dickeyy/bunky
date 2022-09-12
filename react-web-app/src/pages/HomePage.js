@@ -21,7 +21,7 @@ function HomePage() {
       <Header />
 
       <Show breakpoint='(max-width: 580px)'>
-        <Heading fontSize={60} textAlign='center' p={50} pt={10} pb={20} color={'white'} fontWeight={700} mt={30}>The best way to find your next great roommate.</Heading>
+        <Heading fontSize={60} textAlign='center' p={0} pt={10} pb={20} color={'white'} fontWeight={700} mt={30}>The best way to find your next great roommate.</Heading>
 
         <Text textAlign='center' pr={55} pl={55} color={'gray.300'} fontWeight={600} fontSize={25}>With bunky, you can find people close to you with similar living patterns.</Text>
       </Show>

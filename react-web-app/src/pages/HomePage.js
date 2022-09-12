@@ -15,6 +15,10 @@ function HomePage() {
     const [ email, setEmail ] = React.useState('')
     const cancelRef = React.useRef()
 
+    React.useEffect(() => {
+      document.title = 'Coming Soon | Bunky';
+    });
+
   return (
     <Box p={5} h={'fit-content'} flexDirection="column" bgGradient='linear(to-r, #6320EE, #8075FF, #7e59ca)'>
 

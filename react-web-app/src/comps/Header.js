@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ChakraProvider, Text, Link, Badge, Button, Box, Image, ColorModeScript, Show, Drawer, useDisclosure, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Hide } from '@chakra-ui/react';
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Logo from  '../assets/app-logo-06.png'
 import theme from '../theme';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
@@ -15,7 +15,28 @@ function Header() {
     const handleClick = () => {
         onOpen()
     }
-    
+
+    const location = useLocation();
+
+    const [isHome, setIsHome] = React.useState(false)
+    const [isAbout, setIsAbout] = React.useState(false)
+    const [isApp, setIsApp] = React.useState(false)
+
+    React.useEffect(() => {
+        if (location.pathname === '/') {
+            setIsHome(true)
+            setIsAbout(false)
+            setIsApp(false)
+        } else if (location.pathname === '/about') {
+            setIsHome(false)
+            setIsAbout(true)
+            setIsApp(false)
+        } else if (location.pathname === '/app') {
+            setIsHome(false)
+            setIsAbout(false)
+            setIsApp(true)
+        }
+    }, [location])
 
   return (
     <ChakraProvider backgroundColor={'#1A202C'} justifyContent={'center'}>
@@ -66,7 +87,7 @@ function Header() {
 
                         <Box w={10} />
 
-                        <NavLink to={'/about'}>
+                        {/* <NavLink to={'/about'}>
                             <Link fontSize={30} fontWeight={700}>
                                 About
                             </Link>
@@ -78,30 +99,101 @@ function Header() {
                             <Link fontSize={30} fontWeight={700}>
                                 App
                             </Link>
-                        </NavLink>
+                        </NavLink> */}
                     </DrawerBody>
                     </DrawerContent>
                 </Drawer>
                 </Show>
                 
                 <Hide breakpoint='(max-width: 580px)'>
-                    <NavLink to={'/'}>
-                        <Link mr={3}>
-                            Home
-                        </Link>
-                    </NavLink>
 
-                    <NavLink to={'/about'}>
-                        <Link mr={3}>
-                            About
-                        </Link>
-                    </NavLink>
+                    {isHome ? (
+                        
+                        <>
+                        <NavLink to={'/'}>
+                            <Link mr={2} p={3} color={'white'} borderRadius={10} backgroundColor={'#6320EE'} fontWeight={800} _hover={{textDecoration:"none"}}>
+                                Home
+                            </Link>
+                        </NavLink>
 
-                    <NavLink to={'/app'}>
-                        <Link mr={3}>
-                            App
-                        </Link>
-                    </NavLink>
+                        {/* <NavLink to={'/about'}>
+                            <Link mr={2} p={3} color={'white'} _hover={{ color: "purple.300", backgroundColor: 'whiteAlpha.100', borderRadius: 10}}>
+                                About
+                            </Link>
+                        </NavLink>
+
+                        <NavLink to={'/app'}>
+                            <Link mr={2} p={3} color={'white'} _hover={{ color: "purple.300", backgroundColor: 'whiteAlpha.100', borderRadius: 10}}>
+                                App
+                            </Link>
+                        </NavLink> */}
+                        </>
+
+                    ) : isAbout ? (
+                        <>
+                        <NavLink to={'/'}>
+                            <Link mr={2} p={3} color={'white'} _hover={{ color: "purple.300", backgroundColor: 'whiteAlpha.100', borderRadius: 10}}>
+                                Home
+                            </Link>
+                        </NavLink>
+
+                        {/* <NavLink to={'/about'}>
+                            <Link mr={2} p={3} color={'white'} borderRadius={10} backgroundColor={'purple.700'} fontWeight={800} _hover={{textDecoration:"none"}}>
+                                About
+                            </Link>
+                        </NavLink>
+
+                        <NavLink to={'/app'}>
+                            <Link mr={2} p={3} color={'white'} _hover={{ color: "purple.300", backgroundColor: 'whiteAlpha.100', borderRadius: 10}}>
+                                App
+                            </Link>
+                        </NavLink> */}
+                        </>
+
+                    ) : isApp ? (
+
+                        <>
+                        <NavLink to={'/'}>
+                            <Link mr={2} p={3} color={'white'} _hover={{ color: "purple.300", backgroundColor: 'whiteAlpha.100', borderRadius: 10}}>
+                                Home
+                            </Link>
+                        </NavLink>
+
+                        {/* <NavLink to={'/about'}>
+                            <Link mr={2} p={3}  color={'white'} _hover={{ color: "purple.300", backgroundColor: 'whiteAlpha.100', borderRadius: 10}}>
+                                About
+                            </Link>
+                        </NavLink>
+
+                        <NavLink to={'/app'}>
+                            <Link mr={2} p={3} color={'white'} borderRadius={10} backgroundColor={'purple.700'} fontWeight={800} _hover={{textDecoration:"none"}}>
+                                App
+                            </Link>
+                        </NavLink> */}
+                        </>
+
+                    ) : (
+
+                        <>
+                        <NavLink to={'/'}>
+                            <Link mr={2} p={3} _hover={{ color: "purple.300", backgroundColor: 'whiteAlpha.100', borderRadius: 10}}>
+                                Home
+                            </Link>
+                        </NavLink>
+
+                        {/* <NavLink to={'/about'}>
+                            <Link mr={2} p={3} _hover={{ color: "purple.300", backgroundColor: 'whiteAlpha.100', borderRadius: 10}}>
+                                About
+                            </Link>
+                        </NavLink>
+
+                        <NavLink to={'/app'}>
+                            <Link mr={2} p={3} _hover={{ color: "purple.300", backgroundColor: 'whiteAlpha.100', borderRadius: 10}}>
+                                App
+                            </Link>
+                        </NavLink> */}
+                        </>
+                    )}
                 </Hide>
 
                 
@@ -140,11 +232,7 @@ function Header() {
                     </Link>
                 </NavLink>
 
-                <Text fontSize={25} ml={20} mr={2} fontWeight={800} mt={'-2'}>bunky</Text>
-
-                <Badge variant='solid' colorScheme='purple' mt={-1.5}>
-                    Beta
-                </Badge>
+                <Text fontSize={25} color={'white'} ml={20} mr={2} fontWeight={800} mt={'-2'}>bunky</Text>
                 </Hide>
             </Box>
       </Box>

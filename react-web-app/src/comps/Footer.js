@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { ChakraProvider, Text, Link, Badge, Button, Box, Image, ColorModeScript, Show, Drawer, useDisclosure, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Hide } from '@chakra-ui/react';
+import { ChakraProvider, Text, Link, Badge, Button, Box, Image, ColorModeScript, Show, Drawer, useDisclosure, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Hide, Icon } from '@chakra-ui/react';
 import { NavLink } from "react-router-dom";
 import Logo from  '../assets/app-logo-06.png'
 import theme from '../theme';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { GiHamburger, GiHamburgerMenu } from 'react-icons/gi';
+import { FaTwitter } from 'react-icons/fa'
 
 
 function Footer() {
@@ -24,14 +25,13 @@ function Footer() {
         w={'90vw'} 
         p={'1.5rem'}
         pb={'3rem'}
-        position={"sticky"}
         bottom={'0'}
         height={'fit-content'}
         backgroundColor={'rgba(180, 180, 180, 0.2)'}
         backdropFilter={'blur(10px)'}
         boxShadow={'rgba(28, 28, 28, 0.2) 0px 0px 10px'}
         borderRadius={'13px'}
-        margin={'1rem auto'}
+        margin={'auto'}
         >
             <Box
                 width={'100%'}
@@ -43,69 +43,9 @@ function Footer() {
                 alignSelf={'center'}
                 textAlign={'right'}
             >   
-
-                <Show breakpoint='(max-width: 580px)'>
-                <Button
-                    onClick={() => handleClick(size)}
-                    key={size}
-                    pr={1}
-                    leftIcon={<GiHamburgerMenu />} 
-                    ></Button>
-
-                <Drawer onClose={onClose} isOpen={isOpen} size={'xs'}>
-                    <DrawerOverlay />
-                    <DrawerContent>
-                    <DrawerCloseButton />
-                    <DrawerHeader fontSize={50} fontWeight={700}>Menu</DrawerHeader>
-                    <DrawerBody>
-                        <NavLink to={'/'}>
-                            <Link fontSize={30} fontWeight={700}>
-                                Home
-                            </Link>
-                        </NavLink>
-
-                        <Box w={10} />
-
-                        <NavLink to={'/about'}>
-                            <Link fontSize={30} fontWeight={700}>
-                                About
-                            </Link>
-                        </NavLink>
-
-                        <Box w={10} />
-
-                        <NavLink to={'/app'}>
-                            <Link fontSize={30} fontWeight={700}>
-                                App
-                            </Link>
-                        </NavLink>
-                    </DrawerBody>
-                    </DrawerContent>
-                </Drawer>
-                </Show>
-                
-                <Hide breakpoint='(max-width: 580px)'>
-                    <NavLink to={'/'}>
-                        <Link mr={3}>
-                            Home
-                        </Link>
-                    </NavLink>
-
-                    <NavLink to={'/about'}>
-                        <Link mr={3}>
-                            About
-                        </Link>
-                    </NavLink>
-
-                    <NavLink to={'/app'}>
-                        <Link mr={3}>
-                            App
-                        </Link>
-                    </NavLink>
-                </Hide>
-
-                
-                <ColorModeSwitcher />
+            <a href='https://twitter.com/bunkyapp' target="_blank">
+                <Icon as={FaTwitter} w={8} h={8} mt={2.5} mr={5} color={'whiteAlpha.700'} />
+            </a>
 
                 
             </Box>
@@ -120,31 +60,18 @@ function Footer() {
                 flexDirection={'row'}
             >
 
-                <Show breakpoint='(max-width: 380px)'>
                     <NavLink to={'/'}>
-                        <Link>
-                            <a>
-                                <Image w={'45px'} mt={'-15px'} justifyContent={'left'} pos={'absolute'} left={'10px'} alignItems={'center'} src={Logo} alt='logo' />
-                            </a>
+                        <Link pos={'absolute'} left={'10px'} ml={5}>
+                            <Text>Terms</Text>
                         </Link>
                     </NavLink>
-                </Show>
+                    <NavLink to={'/'}>
+                        <Link pos={'absolute'} left={'75px'} ml={5}>
+                            <Text>Privacy</Text>
+                        </Link>
+                    </NavLink>
 
                 <Hide breakpoint='(max-width: 380px)'>
-
-                <NavLink to={'/'}>
-                    <Link>
-                        <a>
-                            <Image w={'45px'} mt={'-25px'} justifyContent={'left'} pos={'absolute'} left={'20px'} alignItems={'center'} src={Logo} alt='logo' />
-                        </a>
-                    </Link>
-                </NavLink>
-
-                <Text fontSize={25} ml={20} mr={2} fontWeight={800} mt={'-2'}>bunky</Text>
-
-                <Badge variant='solid' colorScheme='purple' mt={-1.5}>
-                    Beta
-                </Badge>
                 </Hide>
             </Box>
       </Box>

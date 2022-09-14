@@ -23,7 +23,7 @@ import Footer from '../comps/Footer';
 import FullPageProfileView from '../comps/FullPageProfileViewPage';
 import Line from '../comps/Line';
 
-const AccountPage = ({ navigation, id })  => {
+const SettingsPage = ({ navigation, id })  => {
 
   const [loading, setLoading] = useState(true);
 
@@ -225,7 +225,7 @@ const AccountPage = ({ navigation, id })  => {
 
                 <View style={mainStyles.accountButtonRow}>
 
-                    <Pressable onPress={() => { navigation.navigate('Settings') }} >
+                    <Pressable>
                         <View style={mainStyles.settingsProfileButton}>
                             <Image source={require('../assets/settings-icon.png')} style={mainStyles.settingsProfileIcon} />
                         </View>
@@ -270,4 +270,4 @@ const AccountPage = ({ navigation, id })  => {
   );
 }
 
-export default AccountPage;
+export default SettingsPage;

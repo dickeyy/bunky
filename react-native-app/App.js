@@ -18,6 +18,7 @@ import FullPageProfileViewPage from './comps/FullPageProfileViewPage';
 import OnboardingCodeEnterPage from './pages/OnboardingCodeEnterPage';
 import OnboardingLocationPage from './pages/OnboardingGetLocationPage';
 import AccountPage from './pages/AccountPage';
+import SettingsPage from './pages/SettingsPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -107,6 +108,12 @@ const App = () => {
         <Stack.Screen
           name="Account"
           component={AccountPage}
+          options={{ headerShown: false, animation: 'none', gestureEnabled: false }}
+        />
+
+        <Stack.Screen
+          name="Settings"
+          component={SettingsPage}
           options={{ headerShown: false, animation: 'none', gestureEnabled: false }}
         />
 

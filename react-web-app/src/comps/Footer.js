@@ -5,7 +5,8 @@ import Logo from  '../assets/app-logo-06.png'
 import theme from '../theme';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { GiHamburger, GiHamburgerMenu } from 'react-icons/gi';
-import { FaTwitter, FaDiscord } from 'react-icons/fa'
+import { FaTwitter, FaDiscord, FaInstagram, FaTiktok } from 'react-icons/fa'
+import { MdEmail, MdMail } from 'react-icons/md'
 
 
 function Footer() {
@@ -47,8 +48,20 @@ function Footer() {
                 <Icon as={FaTwitter} w={8} h={8} mt={2.5} mr={5} color={'whiteAlpha.700'} />
             </a>
 
+            <a href='https://instagram.com/bunky.ig' target="_blank">
+                <Icon as={FaInstagram} w={8} h={8} mt={2.5} mr={5} color={'whiteAlpha.700'} />
+            </a>
+
+            <a href='https://tiktok.com/@bunky.app' target="_blank">
+                <Icon as={FaTiktok} w={8} h={8} mt={2.5} mr={5} color={'whiteAlpha.700'} />
+            </a>
+
             <a href='https://discord.gg/9fKKKxTh7G' target="_blank">
                 <Icon as={FaDiscord} w={8} h={8} mt={2.5} mr={5} color={'whiteAlpha.700'} />
+            </a>
+
+            <a href='mailto: hello@bunky.app' target="_blank">
+                <Icon as={MdMail} w={8} h={8} mt={2.5} mr={5} color={'whiteAlpha.700'} />
             </a>
 
                 

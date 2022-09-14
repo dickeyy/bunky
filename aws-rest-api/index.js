@@ -26,6 +26,7 @@ const set_location = require("./routes/onboard/set_location");
 const user_key = require("./routes/fetch/user_key");
 const me = require('./routes/fetch/me');
 const logout = require("./routes/auth/logout");
+const subscribe = require('./routes/mail/subscribe');
 
 // config env
 dotenv.config();
@@ -194,6 +195,9 @@ app.get('/fetch/me', me.me)
 
 // logout
 app.get('/auth/logout', logout.logout)
+
+// Mail list subscribe
+app.post('/mail/subscribe', subscribe.subscribe)
 
 // Set 404 Page
 app.use((req, res, next) => {

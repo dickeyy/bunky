@@ -94,6 +94,7 @@ function Footer() {
         <Box 
         w={'90vw'} 
         height={125}
+        pb={10}
         backgroundColor={'rgba(180, 180, 180, 0.2)'}
         backdropFilter={'blur(10px)'}
         boxShadow={'rgba(28, 28, 28, 0.2) 0px 0px 10px'}

@@ -36,7 +36,7 @@ function HomePage() {
         <Text textAlign='center' pr={55} pl={55} color={'gray.300'} fontWeight={600} fontSize={25}>With bunky, you can find people close to you with similar living patterns.</Text>
       </Hide>
 
-      <Box textAlign='center' pt={10} pb={20} justifyContent='center' flexDir={'row'} pr={60} pl={60}>
+      <Box textAlign='center' pt={10} pb={20} justifyContent='center' flexDir={'row'} pr={'4rem'} pl={'4rem'}>
 
         {/* <Button 
           shadow={'lg'}

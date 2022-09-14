@@ -2,7 +2,6 @@ import * as React from 'react'
 import { theme, Box, Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, useDisclosure, Heading, Text, Hide, Show, Input, InputGroup, InputRightElement, } from '@chakra-ui/react'
 import { FaDiscord } from 'react-icons/fa';
 import { useSearchParams, useLocation } from "react-router-dom"
-import ReactGA from 'react-ga4';
 
 // Components
 import Header from '../comps/Header';
@@ -17,13 +16,8 @@ function HomePage() {
     const cancelRef = React.useRef()
 
     React.useEffect(() => {
-      document.title = 'Coming Soon | ';
+      document.title = 'coming soon...';
     });
-
-    React.useEffect(() => {
-      ReactGA.initialize("G-XGZR7JX9MT");
-      ReactGA.send({ hitType: "pageview", page: window.location.pathname + window.location.search });
-  }, []);
 
   return (
     <Box p={5} h={'fit-content'} flexDirection="column" bgGradient='linear(to-b, #6320EE, #8075FF, #7e59ca)'>

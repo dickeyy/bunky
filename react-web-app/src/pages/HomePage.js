@@ -20,7 +20,7 @@ function HomePage() {
     });
 
   return (
-    <Box p={5} h={'fit-content'} flexDirection="column" bgGradient='linear(to-r, #6320EE, #8075FF, #7e59ca)'>
+    <Box p={5} h={'fit-content'} flexDirection="column" bgGradient='linear(to-b, #6320EE, #8075FF, #7e59ca)'>
 
       <Header />
 

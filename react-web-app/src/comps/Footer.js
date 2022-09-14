@@ -76,12 +76,12 @@ function Footer() {
             >
 
                     <NavLink to={'/'}>
-                        <Link pos={'absolute'} left={'10px'} ml={5}>
+                        <Link pos={'absolute'} left={'10px'} ml={5} color={'gray.100'}>
                             <Text>Terms</Text>
                         </Link>
                     </NavLink>
                     <NavLink to={'/'}>
-                        <Link pos={'absolute'} left={'75px'} ml={5}>
+                        <Link pos={'absolute'} left={'75px'} ml={5} color={'gray.100'}>
                             <Text>Privacy</Text>
                         </Link>
                     </NavLink>

@@ -69,7 +69,7 @@ function HomePage() {
             disabled={true}
           />
           <InputRightElement width='5.5rem'>
-            <Button mr={1} disabled={true}>
+            <Button mr={1} disabled={true} color={'gray.300'}>
               Submit
             </Button>
           </InputRightElement>

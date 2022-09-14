@@ -59,7 +59,7 @@ function HomePage() {
 
         <InputGroup size='lg'>
           <Input
-            placeholder="Email (hello@bunky.app)"
+            placeholder="Email"
             size="lg"
             // width={'30vw'}
             color={'white'}

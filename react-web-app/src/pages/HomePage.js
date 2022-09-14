@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { theme, Box, Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, useDisclosure, Heading, Text, Hide, Show, Input, } from '@chakra-ui/react'
+import { theme, Box, Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, useDisclosure, Heading, Text, Hide, Show, Input, InputGroup, InputRightElement, } from '@chakra-ui/react'
 import { FaDiscord } from 'react-icons/fa';
 import { useSearchParams, useLocation } from "react-router-dom"
 
@@ -36,7 +36,7 @@ function HomePage() {
         <Text textAlign='center' pr={55} pl={55} color={'gray.300'} fontWeight={600} fontSize={25}>With bunky, you can find people close to you with similar living patterns.</Text>
       </Hide>
 
-      <Box textAlign='center' pt={10} pb={20} justifyContent='center' flexDir={'row'}>
+      <Box textAlign='center' pt={10} pb={20} justifyContent='center' flexDir={'row'} pr={60} pl={60}>
 
         {/* <Button 
           shadow={'lg'}
@@ -57,30 +57,23 @@ function HomePage() {
           Get Updates
         </Text>
 
-        <Input 
-          placeholder="Email"
-          size="lg"
-          width={'30vw'}
-          color={'white'}
-          _placeholder={{ color: 'gray.300' }}
-          borderColor={'gray.300'}
-          type="email"
-          onChange={setEmail}
-        />
-
-        <Button
-          shadow={'lg'}
-          color={'white'}
-          backgroundColor={'purple.600'}
-          fontSize={20}
-          mt={-2}
-          p={6}
-          fontWeight={700}
-          _hover={{backgroundColor: 'purple.800'}}
-          ml={5}
-        >
-          Sign Up
-        </Button>
+        <InputGroup size='lg'>
+          <Input
+            placeholder="Email (hello@bunky.app)"
+            size="lg"
+            // width={'30vw'}
+            color={'white'}
+            _placeholder={{ color: 'gray.400' }}
+            type="email"
+            onChange={setEmail}
+            disabled={true}
+          />
+          <InputRightElement width='5.5rem'>
+            <Button mr={1} disabled={true}>
+              Submit
+            </Button>
+          </InputRightElement>
+        </InputGroup>
 
         <Box h={100} />
 

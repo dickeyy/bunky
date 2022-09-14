@@ -94,7 +94,6 @@ function Footer() {
         <Box 
         w={'90vw'} 
         height={125}
-        pb={10}
         backgroundColor={'rgba(180, 180, 180, 0.2)'}
         backdropFilter={'blur(10px)'}
         boxShadow={'rgba(28, 28, 28, 0.2) 0px 0px 10px'}
@@ -102,12 +101,11 @@ function Footer() {
         textAlign={'center'}
         alignContent={'center'}
         justifyContent={'center'}
+        pt={'2.5rem'}
         >
             <Box
                 width={'100%'}
                 alignItems={'flex-end'}
-                position={'absolute'}
-                bottom={'3'}
                 alignSelf={'center'}
                 textAlign={'center'}
             >   
@@ -132,26 +130,7 @@ function Footer() {
             </a>
             </Box>
 
-            <Box
-                justifyContent={'center'}
-                alignItems={'center'}
-                display={'flex'}
-                flexDirection={'row'}
-                textAlign={'center'}
-            >
-
-                    <NavLink to={'/'}>
-                        <Link ml={5}>
-                            <Text>Terms</Text>
-                        </Link>
-                    </NavLink>
-                    <Box width={'15px'} />
-                    <NavLink to={'/'}>
-                        <Link ml={5}>
-                            <Text>Privacy</Text>
-                        </Link>
-                    </NavLink>
-            </Box>
+            
       </Box>
         </Show>
 

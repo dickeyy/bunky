@@ -63,7 +63,8 @@ exports.subscribe = async function(req, res) {
                   function(err) {
                   return res.status(500).json({
                     message: 'Error sending email',
-                    err
+                    err,
+                    email: email
                 });
               });
         });

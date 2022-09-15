@@ -16,20 +16,23 @@ function HomePage() {
     const cancelRef = React.useRef()
     const toast = useToast()
 
+    const handleChange = (event) => setEmail(event.target.value)
+
     React.useEffect(() => {
       document.title = 'coming soon...';
     });
 
     const subscribe = async () => {
         setLoading(true)
+        console.log(email)
         setDisabled(true)
-        const res = await fetch('/mail/subscribe', {
+        const res = await fetch('https://6lcdbjork2.execute-api.us-east-1.amazonaws.com/mail/subscribe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: email
+                email: String(email)
             })
         })
         const data = await res.json()
@@ -50,6 +53,7 @@ function HomePage() {
                 isClosable: true,
             })
         } else {
+          console.log(data)
             toast({
                 title: "Error",
                 description: "There was an error subscribing you to our mailing list",
@@ -108,7 +112,7 @@ function HomePage() {
             color={'white'}
             _placeholder={{ color: 'gray.400' }}
             type="email"
-            onChange={setEmail}
+            onChange={handleChange}
             disabled={isDisabled}
           />
           <InputRightElement width='5.5rem'>

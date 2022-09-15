@@ -32,37 +32,22 @@ exports.subscribe = async function(req, res) {
             };
 
             var params = {
-                Destination: { /* required */
-                  ToAddresses: [
-                    'kyle.dickey@bunky.app',
-                    /* more items */
-                  ]
-                },
-                Message: { /* required */
-                  Body: { /* required */
-                    Html: {
-                     Charset: "UTF-8",
-                     Data: "HTML_FORMAT_BODY"
-                    },
-                    Text: {
-                     Charset: "UTF-8",
-                     Data: "TEXT_FORMAT_BODY"
-                    }
-                   },
-                   Subject: {
-                    Charset: 'UTF-8',
-                    Data: 'Test email'
-                   }
-                  },
-                Source: 'noreply@bunky.app', /* required */
-                ReplyToAddresses: [
-                   'hello@bunky.app',
-                  /* more items */
-                ],
-              };
-              
+              Destination: { 
+                ToAddresses: [
+                  email,
+                  /* more To email addresses */
+                ]
+              },
+              Source: 'noreply@bunky.app', /* required */
+              Template: 'aws_ses_template_subscribe', /* required */
+              TemplateData: "{ \"email\": \"" + email + "\" }",
+              ReplyToAddresses: [
+                'hello@bunky.app'
+              ],
+            };
+
               // Create the promise and SES service object
-              var sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+              var sendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendTemplatedEmail(params).promise();
               
               // Handle promise's fulfilled/rejected states
               sendPromise.then(

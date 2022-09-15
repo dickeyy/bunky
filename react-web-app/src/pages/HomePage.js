@@ -112,7 +112,7 @@ function HomePage() {
             disabled={isDisabled}
           />
           <InputRightElement width='5.5rem'>
-            <Button mr={1} disabled={isDisabled} isLoading={isLoading} color={'gray.300'}>
+            <Button mr={1} disabled={isDisabled} isLoading={isLoading} color={'gray.300'} onClick={() => { subscribe() }}>
               Submit
             </Button>
           </InputRightElement>

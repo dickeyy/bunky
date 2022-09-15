@@ -12,12 +12,8 @@ export default function App() {
         ReactGA.initialize("UA-241148324-1");
         ReactGA.pageview(window.location.pathname + window.location.search);
 
-        ReactGa4.initialize("G-KGKNY8Y1KN");
-        ReactGa4.send("pageview", {
-            page_title: document.title,
-            page_location: window.location.href,
-            page_path: window.location.pathname,
-        });
+        ReactGA.initialize("G-KGKNY8Y1KN");
+        ReactGA.pageview(window.location.pathname + window.location.search);
     }, []);
     return (
         <BrowserRouter>

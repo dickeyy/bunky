@@ -26,7 +26,8 @@ function Footer() {
         w={'90vw'} 
         p={'1.5rem'}
         pb={'3rem'}
-        bottom={'0'}
+        bottom={'0px'}
+        position={'relative'}
         height={'fit-content'}
         backgroundColor={'rgba(180, 180, 180, 0.2)'}
         backdropFilter={'blur(10px)'}

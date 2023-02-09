@@ -26,14 +26,13 @@ function Footer() {
         w={'90vw'} 
         p={'1.5rem'}
         pb={'3rem'}
-        bottom={'0px'}
-        position={'relative'}
+        bottom={'2'}
         height={'fit-content'}
         backgroundColor={'rgba(180, 180, 180, 0.2)'}
         backdropFilter={'blur(10px)'}
         boxShadow={'rgba(28, 28, 28, 0.2) 0px 0px 10px'}
         borderRadius={'13px'}
-        margin={'auto'}
+        margin={'1rem auto'}
         >
             <Box
                 width={'100%'}
